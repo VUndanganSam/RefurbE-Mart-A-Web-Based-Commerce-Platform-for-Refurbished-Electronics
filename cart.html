@@ -88,7 +88,7 @@
                 <td>₱3,280.00</td>
             </tr>
             <tr>
-                <td>Tax</td>
+                <td>Shipping</td>
                 <td>₱50.00</td>
             </tr>
             <tr>
@@ -96,6 +96,53 @@
                 <td>₱3,330.00</td>
             </tr>
         </table>
+    </div>
+    <div class="order-btn">
+        <button type="submit"class="btn"onclick="openModal()">Order</button>
+    </div>
+</div>
+
+<!-- Pop-up Modal -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Choose Payment Method</h2>
+
+        <div class="payment-options">
+            <!-- COD -->
+            <h3>Cash on Delivery</h3>
+            <button class="btn cod" onclick="payCOD()">Pay on Delivery</button>
+
+            <!-- Online -->
+            <h3>Online Payment</h3>
+            <div class="online-payments">
+                <button class="logo-btn" onclick="payOnline('GCash')">
+                    <img src="images/logo-gcash.png" alt="Gcash Logo">
+                </button>
+                <button class="logo-btn" onclick="payOnline('Visa/Mastercard')">
+                    <img src="images/logo-mastercard.png" alt="Mastercard Logo">
+                </button>
+                <button class="logo-btn" onclick="payOnline('PayPal')">
+                    <img src="images/logo-paypal.png" alt="Paypal Logo">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="brands">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-5">
+                <img src="images/logo-gcash.png" alt="Gcash Logo">
+            </div>
+            <div class="col-5">
+                <img src="images/logo-mastercard.png" alt="Mastercard Logo">
+            </div>
+            <div class="col-5">
+                <img src="images/logo-paypal.png" alt="Paypal Logo">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -136,5 +183,47 @@
         });
     });
 </script>
+
+<script>
+    const modal = document.getElementById("orderModal");
+    const closeBtn = document.querySelector(".close");
+
+    // Open modal (fade in + float in)
+    function openModal() {
+        modal.classList.add("show");
+        modal.classList.remove("closing");
+    }
+
+    // Close modal (fade out + float out)
+    function closeModal() {
+        modal.classList.add("closing");
+        setTimeout(() => {
+            modal.classList.remove("show", "closing");
+        }, 300);
+    }
+
+    // Cash on Delivery
+    function payCOD() {
+        alert("✅ You selected Cash on Delivery.\nYour order will be paid upon delivery.");
+        closeModal();
+    }
+
+    // Online Payment
+    function payOnline(method) {
+        alert("✅ You selected " + method + " for payment.\nRedirecting to " + method + " gateway...");
+        closeModal();
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+</script>
+
+
+
 </body>
 </html>
